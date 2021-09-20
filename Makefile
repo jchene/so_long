@@ -3,6 +3,7 @@ NAME		=	so_long
 SRCS		=	./srcs/lib.c\
 				./srcs/check_map.c\
 				./srcs/mem.c\
+				./srcs/color.c\
 				./srcs/mlx.c\
 				./srcs/so_long.c\
 				./utils/get_next_line/get_next_line.c\

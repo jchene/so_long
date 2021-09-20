@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 16:59:05 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/20 17:00:07 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/21 00:05:13 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ int		main(int argc, char **argv)
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		return (err_code(-2));
 	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
-		return (err_code(-3) + munalloc(-6, map, mlx));
+		return (err_code(-3) + munalloc(-3, map, mlx));
 	if (pre_check_map(argv[1], map) == -1)
-		return (err_code(-4) + munalloc(-3, map, mlx));
+		return (err_code(-4) + munalloc(-4, map, mlx));
 	if (copy_map(argv[1], map) == -1)
-		return (err_code(-5) + munalloc(-4, map, mlx));
+		return (err_code(-5) + munalloc(-5, map, mlx));
 	if (check_map(map) == -1)
-		return (err_code(-6) + munalloc(-5, map, mlx));
-	print_map(map);
-	print_infos(map);
+		return (err_code(-6) + munalloc(-6, map, mlx));
+	//print_map(map);
+	//print_infos(map);
 	if ((start_mlx(map, mlx)) == -1)
 		return (err_code(-7) + munalloc(-7, map, mlx));
 	return (err_code(0) + munalloc(0, map, mlx));

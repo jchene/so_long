@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/20 17:22:48 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/21 00:23:30 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,31 @@ int		init_imdt(t_imdt *imdt, t_mlx *mlx)
 //Dessine l'image grace aux informations utiles
 int		draw_img(t_imdt *imdt, t_mlx *mlx)
 {
-	int		column;
 	int		line;
-	int		length;
+	int		column;
+	int		pixel;
+	int		part;
+	
 
-	column = 0;
 	line = 0;
-	length = (*(imdt->ln_size) / (*(imdt->bpp) / 8));
-
-	while (line < mlx->ssizey)
+	column = 0;
+	part = 0;
+	while (line < *(mlx->ssizey))
 	{
-		while ()
+		column = 0;
+		while (column < *(mlx->ssizex))
+		{
+			part = 0;
+			pixel = (line * *(imdt->ln_size)) + (column * 4);
+			while (part < 4)
+			{
+				imdt->start[pixel + part] = get_color(line, column, part, mlx);
+				part++;
+			}
+			column++;
+		}
+		line++;
 	}
-
 	return (0);
 }
 
@@ -75,14 +87,13 @@ int		update_img(t_mlx *mlx)
 {
 	t_imdt	*imdt;
 
-	if (!(imdt = (t_imdt*)malloc(sizeof(t_imdt))))
+	if (!(imdt = (t_imdt *)malloc(sizeof(t_imdt))))
 		return (-1);
 	if (init_imdt(imdt, mlx) == -1)
 		return (-1);
-	mlx_get_screen_size(mlx->ptr, mlx->ssizex, mlx->ssizey);
-	/*if (draw_img(imdt, mlx) == -1)
-		return (-1);*/
-	//mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
+	if (draw_img(imdt, mlx) == -1)
+		return (-1);
+	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
 	free(imdt->bpp);
 	free(imdt->ln_size);
 	free(imdt->endian);
@@ -93,16 +104,26 @@ int		update_img(t_mlx *mlx)
 //Démarrage et boucle de la mlx
 int		start_mlx(t_map *map, t_mlx *mlx)
 {
+	t_color		*color;
+
 	map->steps = 0;
 	mlx->map = map;
 	if (!(mlx->ssizey = (int *)malloc(sizeof(int))))
 		return (-1);
 	if (!(mlx->ssizex = (int *)malloc(sizeof(int))))
 		return (-1);
+	*(mlx->ssizex) = 1280;
+	*(mlx->ssizey) = 720;
+	mlx->map->pa[0] = mlx->map->ps[0];
+	mlx->map->pa[1] = mlx->map->ps[1];
+	if (!(color = (t_color *)malloc(sizeof(t_color))))
+		return (-1);
+	if (init_color(color, mlx) == -1)
+		return (-1);
 	if ((mlx->ptr = mlx_init()) == NULL)
 		return (-1);
-	mlx->win = mlx_new_window(mlx->ptr, 1280, 720, "so_long");
-	mlx->img = mlx_new_image(mlx->ptr, 1280, 720);
+	mlx->win = mlx_new_window(mlx->ptr, *(mlx->ssizex), *(mlx->ssizey), "so_long");
+	mlx->img = mlx_new_image(mlx->ptr, *(mlx->ssizex), *(mlx->ssizey));
 	mlx_key_hook(mlx->win, handle_keys, mlx);
 	mlx_loop_hook(mlx->ptr, update_img, mlx);
 	mlx_loop(mlx->ptr);
