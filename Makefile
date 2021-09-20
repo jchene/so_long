@@ -1,7 +1,12 @@
 NAME		=	so_long
 
-SRCS		=	./srcs/*.c\
-				./utils/get_next_line/*.c
+SRCS		=	./srcs/lib.c\
+				./srcs/check_map.c\
+				./srcs/mem.c\
+				./srcs/mlx.c\
+				./srcs/so_long.c\
+				./utils/get_next_line/get_next_line.c\
+				./utils/get_next_line/get_next_line_utils.c
 
 CC			=	gcc
 
@@ -15,7 +20,7 @@ MLX			=	./utils/minilibx-linux/libmlx_Linux.a
 
 DEL			=	rm -f
 
-OBJ			=	$(SRCS:.c=.o)
+OBJ			=	$(addsufix .o, $(basename $(SRCS)))
 
 $(NAME):		$(OBJ)
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)

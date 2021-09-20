@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 01:16:01 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/18 17:01:43 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/20 16:51:44 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int		init_map(t_map *map)
 		return (-1);
 	map->ex[0] = -1;
 	map->ex[1] = -1;
-	return (0);
 	if (!(map->col = (int **)malloc(sizeof(int *) * map->nb_col)))
 		return (-1);
 	i = 0;
@@ -95,6 +94,7 @@ int		init_map(t_map *map)
 		map->col[i][1] = -1;
 		i++;
 	}
+	map->col_id = 0;
 	return (0);
 }
 
@@ -142,10 +142,8 @@ int		verif_utils(t_map *map, int i)
 {
 	int		j;
 	int		len;
-	int		col_id;
 
 	j = 0;
-	col_id = 0;
 	len = ft_strlen(map->map[i]);
 	while (j < len)		//Verification caractère par caractère de la ligne
 	{
@@ -153,10 +151,11 @@ int		verif_utils(t_map *map, int i)
 			return (-1);
 		if (verif_char(map, map->ex, 'E', i, j) == -1)
 			return (-1);
-		if (verif_char(map, map->col[col_id], 'C', i, j) == -1)
-			return (-1);
+		if (map->col_id < map->nb_col)
+			if (verif_char(map, map->col[map->col_id], 'C', i, j) == -1)
+				return (-1);
 		if (map->map[i][j] == 'C')
-			col_id++;
+			map->col_id++;
 		j++;
 	}
 	return (0);
