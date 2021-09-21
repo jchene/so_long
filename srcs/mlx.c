@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/21 00:23:30 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 01:16:52 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,52 @@
 //Gère les inputs du clavier et modifie les variables en conséquence
 int		handle_keys(int key, t_mlx *mlx)
 {
+	int		coll_n;
+
 	if (key == 65307)
 	{
 		mlx_destroy_image(mlx->ptr, mlx->img);
 		mlx_destroy_window(mlx->ptr, mlx->win);
 		exit(0);
 	}
-	else if (key == 122)
-		mlx->map->pa[0]--;
-	else if (key == 113)
-		mlx->map->pa[1]--;
-	else if (key == 115)
-		mlx->map->pa[0]++;
-	else if (key == 100)
-		mlx->map->pa[1]++;
+	if (key == 122)
+		if (mlx->map->map[mlx->map->pa[0] - 1][mlx->map->pa[1]] != '1')
+		{
+			mlx->map->pa[0]--;
+			mlx->map->steps++;
+		}
+	if (key == 113)
+		if (mlx->map->map[mlx->map->pa[0]][mlx->map->pa[1] - 1] != '1')
+		{
+			mlx->map->pa[1]--;
+			mlx->map->steps++;
+		}
+	if (key == 115)
+		if (mlx->map->map[mlx->map->pa[0] + 1][mlx->map->pa[1]] != '1')
+		{
+			mlx->map->pa[0]++;
+			mlx->map->steps++;
+		}
+	if (key == 100)
+		if (mlx->map->map[mlx->map->pa[0]][mlx->map->pa[1] + 1] != '1')
+		{
+			mlx->map->pa[1]++;
+			mlx->map->steps++;
+		}
 	if (key == 122 || key == 113 || key == 115 || key == 100)
 	{
-		mlx->map->steps++;
+		coll_n = get_coll_n(mlx->map->pa[0], mlx->map->pa[1], mlx);
+		if (coll_n != -1)
+		{
+			mlx->map->col[coll_n][2] = 1;
+			mlx->map->col_id--;
+		}
+		if ((mlx->map->col_id == 0) && (mlx->map->pa[0] == mlx->map->ex[0]) && (mlx->map->pa[1] == mlx->map->ex[1]))
+		{
+			mlx_destroy_image(mlx->ptr, mlx->img);
+			mlx_destroy_window(mlx->ptr, mlx->win);
+			exit(0);
+		}
 		printf("Number of steps: %d\n", mlx->map->steps);
 	}
 	return (0);

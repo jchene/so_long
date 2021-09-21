@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 01:16:01 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/20 16:51:44 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 01:02:16 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,11 @@ int		init_map(t_map *map)
 	i = 0;
 	while (i < map->nb_col)
 	{
-		if (!(map->col[i] = (int *)malloc(sizeof(int) * 2)))
+		if (!(map->col[i] = (int *)malloc(sizeof(int) * 3)))
 			return (-1);
 		map->col[i][0] = -1;
 		map->col[i][1] = -1;
+		map->col[i][2] = 0;
 		i++;
 	}
 	map->col_id = 0;

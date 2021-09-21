@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:10:56 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/20 23:36:18 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 01:00:47 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_map	//map related variables - malloc main
 	int		*ps;		//player starting position y:[0] x:[1] - malloc copy map
     int		*pa;		//player actual position y:[0] x:[1] - malloc copy map
 	int		*ex;		//exit position y:[0] x:[1] - malloc copy map
-	int		**col;		//collectibles positions y:[][0] x:[][1] - malloc copy map
+	int		**col;		//collectibles positions y:[][0] x:[][1] eaten:[][2] - malloc copy map
 	int		steps;		//number of steps from the start
 }				t_map;
 
@@ -83,6 +83,7 @@ int		munalloc(int code, t_map *map, t_mlx *mlx);
 //color functions
 int		init_color(t_color *color, t_mlx *mlx);
 int		get_color(int line, int column, int part, t_mlx *mlx);
+int		get_coll_n(int y, int x, t_mlx *mlx);
 
 //mlx functions
 int		handle_keys(int key, t_mlx *mlx);

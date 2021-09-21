@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 22:59:20 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/21 00:27:22 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 01:08:04 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,31 @@ int		init_color(t_color *color, t_mlx *mlx)
 	return (0);
 }
 
+int		get_coll_n(int y, int x, t_mlx *mlx)
+{
+	int		i;
+
+	i = 0;
+	while (i < mlx->map->nb_col)
+	{
+		if ((mlx->map->col[i][0] == y) && (mlx->map->col[i][1] == x))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 int		get_color(int line, int column, int part, t_mlx *mlx)
 {
 	char	c;
 	float	v_rap;
 	float	h_rap;
+	int		coll_n;
 
 	v_rap = ((float)*(mlx->ssizey) / (float)mlx->map->hei);
 	h_rap = ((float)*(mlx->ssizex) / (float)mlx->map->len);
 	c = mlx->map->map[(int)(line / v_rap)][(int)(column / h_rap)];
+	
 	//printf("c: %c - line: %d - column: %d - v_rap: %f - h_rap: %f\n", c, line, column, v_rap, h_rap);
 	if (((int)(line / v_rap) == mlx->map->pa[0]) && ((int)(column / h_rap) == mlx->map->pa[1]))
 		return (mlx->color->player[part]);
@@ -66,8 +82,12 @@ int		get_color(int line, int column, int part, t_mlx *mlx)
 		return (mlx->color->floor[part]);
 	else if (c == 'E')
 		return (mlx->color->exit[part]);
-	else if (c == 'C')
-		return (mlx->color->coll[part]);
+	else if ((c == 'C'))
+	{
+		coll_n = get_coll_n((int)(line / v_rap), (int)(column / h_rap), mlx);
+		if ((coll_n != -1) && (mlx->map->col[coll_n][2] == 0))
+			return (mlx->color->coll[part]);
+	}
 	else if ((c == 'P') && (mlx->map->steps == 0))
 		return (mlx->color->player[part]);
 	return (0);
