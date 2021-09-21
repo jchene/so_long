@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/22 01:16:52 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 01:37:20 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,9 @@ int		handle_keys(int key, t_mlx *mlx)
 		}
 	if (key == 122 || key == 113 || key == 115 || key == 100)
 	{
+		printf("exit:[%d][%d], player:[%d][%d], col:%d\n", mlx->map->ex[0], mlx->map->ex[1], mlx->map->pa[0], mlx->map->pa[1], mlx->map->col_id);
 		coll_n = get_coll_n(mlx->map->pa[0], mlx->map->pa[1], mlx);
-		if (coll_n != -1)
+		if (coll_n != -1 && mlx->map->col[coll_n][2] != 1)
 		{
 			mlx->map->col[coll_n][2] = 1;
 			mlx->map->col_id--;
