@@ -6,12 +6,13 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 22:59:20 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/22 01:08:04 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/22 19:07:39 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
+//Initialise la structure color et y stocke les couleurs
 int		init_color(t_color *color, t_mlx *mlx)
 {	
 	if (!(color->walls = (int *)malloc(sizeof(int) * 4)))
@@ -48,6 +49,7 @@ int		init_color(t_color *color, t_mlx *mlx)
 	return (0);
 }
 
+//Vérifie si un collectible se trouve aux coordonnées map y x, si oui retourne son id, sinon retourne -1
 int		get_coll_n(int y, int x, t_mlx *mlx)
 {
 	int		i;
@@ -62,6 +64,7 @@ int		get_coll_n(int y, int x, t_mlx *mlx)
 	return (-1);
 }
 
+//Vérifie et donne sa couleur à chaque pixel de l'image
 int		get_color(int line, int column, int part, t_mlx *mlx)
 {
 	char	c;

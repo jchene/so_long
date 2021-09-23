@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 16:44:07 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/20 16:50:50 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/23 02:00:28 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int		err_code(int code)
 		printf("Well done\n");
 	else if (code == -1)
 		printf("Wrong number of arguments\n");
+	else if (code == -8)
+		printf("Bad world extension\n");
 	else if (code == -2)
 		printf("Failed to allocate map pointer\n");
 	else if (code == -3)

@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:09:44 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/18 17:00:05 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/23 02:50:01 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,43 @@ int		count_occur(const char c, char *line)
 		if (line[i++] == c)
 			occur++;
 	return (occur);
+}
+
+//Retourne 1 si il existe une diffférence entre les deux strings, 0 sinon
+int		extdif(const char *ext, char *dot)
+{
+	int		dotlen;
+	int		extlen;
+	int		i;
+
+	i = 0;
+	dotlen = ft_strlen(dot);
+	extlen = ft_strlen((char *)ext);
+	if (dotlen != extlen)
+		return (1);
+	while (i < dotlen)
+	{
+		if (ext[i] != dot[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+//Verifie si le fichier de nom 'filename' possède l'extension 'ext'
+int		check_ext(const char *ext, char *filename)
+{
+	char	*dot;
+	int		len;
+
+	len = ft_strlen(filename) - 1;
+	while (len >= 0)
+	{
+		if (filename[len] == '.')
+			dot = &filename[len];
+		if (extdif(ext, dot))
+			return (-1);
+		len--;
+	}
+	return (0);
 }

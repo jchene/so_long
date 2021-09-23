@@ -6,12 +6,12 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:10:56 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/22 01:00:47 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/23 02:49:23 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG
-# define SO_LONG
+#ifndef SO_LONG_H
+# define SO_LONG_H
 # include "../utils/minilibx-linux/mlx.h"
 # include "../utils/get_next_line/get_next_line.h"
 # include <stdio.h>
@@ -65,6 +65,8 @@ typedef struct	s_imdt	//image data - update img
 int		char_diff(const char *charset, char c);
 int		charset_diff(const char *charset, char *line);
 int		count_occur(const char c, char *line);
+int		extdif(const char *ext, char *dot);
+int		check_ext(const char *ext, char *filename);
 
 //map parsing functions
 int		check_line(char *line, t_map *map);

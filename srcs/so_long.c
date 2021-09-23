@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 16:59:05 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/21 00:05:13 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/23 02:57:30 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ int		main(int argc, char **argv)
 {
 	t_map	*map;
 	t_mlx	*mlx;
+	int		ret;
 
 	if (argc != 2)
 		return (err_code(-1));
+	if (check_ext(".ber", argv[1]) == -1)
+		return (err_code(-8));
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		return (err_code(-2));
 	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
