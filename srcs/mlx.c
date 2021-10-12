@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/22 01:37:20 by jchene           ###   ########.fr       */
+/*   Updated: 2021/09/29 01:19:24 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		handle_keys(int key, t_mlx *mlx)
 		}
 	if (key == 122 || key == 113 || key == 115 || key == 100)
 	{
-		printf("exit:[%d][%d], player:[%d][%d], col:%d\n", mlx->map->ex[0], mlx->map->ex[1], mlx->map->pa[0], mlx->map->pa[1], mlx->map->col_id);
+		//printf("exit:[%d][%d], player:[%d][%d], col:%d\n", mlx->map->ex[0], mlx->map->ex[1], mlx->map->pa[0], mlx->map->pa[1], mlx->map->col_id);
 		coll_n = get_coll_n(mlx->map->pa[0], mlx->map->pa[1], mlx);
 		if (coll_n != -1 && mlx->map->col[coll_n][2] != 1)
 		{
@@ -62,7 +62,7 @@ int		handle_keys(int key, t_mlx *mlx)
 			mlx_destroy_window(mlx->ptr, mlx->win);
 			exit(0);
 		}
-		printf("Number of steps: %d\n", mlx->map->steps);
+		printf("%d\n", mlx->map->steps);
 	}
 	return (0);
 }
@@ -140,6 +140,7 @@ int		start_mlx(t_map *map, t_mlx *mlx)
 	mlx->map = map;
 	if (!(mlx->ssizey = (int *)malloc(sizeof(int))))
 		return (-1);
+		
 	if (!(mlx->ssizex = (int *)malloc(sizeof(int))))
 		return (-1);
 	*(mlx->ssizex) = 1280;

@@ -20,7 +20,7 @@ OBJ			=	$(SRCS:.c=.o)
 $(NAME):		$(OBJ)
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)
 
-%.o: 			%.c
+%.o:%.c
 				$(CC) $(CFLAGS) -o $@ -c $<
 
 all:			$(NAME)
