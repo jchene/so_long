@@ -6,47 +6,38 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 22:59:20 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/22 19:07:39 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/12 22:29:13 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
 //Initialise la structure color et y stocke les couleurs
-int		init_color(t_color *color, t_mlx *mlx)
-{	
-	if (!(color->walls = (int *)malloc(sizeof(int) * 4)))
-		return (-1);
-	if (!(color->coll = (int *)malloc(sizeof(int) * 4)))
-		return (-1);
-	if (!(color->player = (int *)malloc(sizeof(int) * 4)))
-		return (-1);
-	if (!(color->exit = (int *)malloc(sizeof(int) * 4)))
-		return (-1);
-	if (!(color->floor = (int *)malloc(sizeof(int) * 4)))
-		return (-1);
-	color->walls[0] = 0;
-	color->walls[1] = 0;
-	color->walls[2] = 250;
-	color->walls[3] = 0;
-	color->coll[0] = 0;
-	color->coll[1] = 250;
-	color->coll[2] = 250;
-	color->coll[3] = 0;
-	color->player[0] = 250;
-	color->player[1] = 100;
-	color->player[2] = 100;
-	color->player[3] = 0;
-	color->exit[0] = 0;
-	color->exit[1] = 250;
-	color->exit[2] = 0;
-	color->exit[3] = 0;
-	color->floor[0] = 0;
-	color->floor[1] = 0;
-	color->floor[2] = 0;
-	color->floor[3] = 0;
-	mlx->color = color;
-	return (0);
+void	init_color(void)
+{
+	t_color	*s_color;
+
+	s_color = color();
+	s_color->walls[0] = 0;
+	s_color->walls[1] = 0;
+	s_color->walls[2] = 250;
+	s_color->walls[3] = 0;
+	s_color->coll[0] = 0;
+	s_color->coll[1] = 250;
+	s_color->coll[2] = 250;
+	s_color->coll[3] = 0;
+	s_color->player[0] = 250;
+	s_color->player[1] = 100;
+	s_color->player[2] = 100;
+	s_color->player[3] = 0;
+	s_color->exit[0] = 0;
+	s_color->exit[1] = 250;
+	s_color->exit[2] = 0;
+	s_color->exit[3] = 0;
+	s_color->floor[0] = 0;
+	s_color->floor[1] = 0;
+	s_color->floor[2] = 0;
+	s_color->floor[3] = 0;
 }
 
 //Vérifie si un collectible se trouve aux coordonnées map y x, si oui retourne son id, sinon retourne -1

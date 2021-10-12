@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/29 01:19:24 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/12 23:39:13 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,8 +148,6 @@ int		start_mlx(t_map *map, t_mlx *mlx)
 	mlx->map->pa[0] = mlx->map->ps[0];
 	mlx->map->pa[1] = mlx->map->ps[1];
 	if (!(color = (t_color *)malloc(sizeof(t_color))))
-		return (-1);
-	if (init_color(color, mlx) == -1)
 		return (-1);
 	if ((mlx->ptr = mlx_init()) == NULL)
 		return (-1);

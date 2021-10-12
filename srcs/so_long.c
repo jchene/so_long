@@ -6,11 +6,19 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 16:59:05 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/23 21:49:23 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/12 23:39:15 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
+
+void	start_static(void)
+{
+	color();
+	game();
+	map();
+	mlx();
+}
 
 void	print_map(t_map *map)
 {
@@ -38,26 +46,23 @@ void	print_infos(t_map *map)
 
 int		main(int argc, char **argv)
 {
-	t_map	*map;
-	t_mlx	*mlx;
-
 	if (argc != 2)
 		return (err_code(-1));
 	/*if (check_ext(".ber", argv[1]) == -1)
-		return (err_code(-8));*/
-	if (!(map = (t_map*)malloc(sizeof(t_map))))
-		return (err_code(-2));
-	if (!(mlx = (t_mlx*)malloc(sizeof(t_mlx))))
-		return (err_code(-3) + munalloc(-3, map, mlx));
-	if (pre_check_map(argv[1], map) == -1)
-		return (err_code(-4) + munalloc(-4, map, mlx));
-	if (copy_map(argv[1], map) == -1)
-		return (err_code(-5) + munalloc(-5, map, mlx));
-	if (check_map(map) == -1)
-		return (err_code(-6) + munalloc(-6, map, mlx));
+		return (err_code(-2));*/
+	start_static();
+	if (pre_check_map(argv[1]) == -1)
+		return (err_code(-3));
+	if (init_map_array() == -1)
+		return (-4);
+	if (copy_map(argv[1]) == -1)
+		return (munalloc(-5));
+	if (check_map() == -1)//adapter pour sorties multiples
+		return (munalloc(-6));
+	
 	//print_map(map);
 	//print_infos(map);
 	if ((start_mlx(map, mlx)) == -1)
-		return (err_code(-7) + munalloc(-7, map, mlx));
-	return (err_code(0) + munalloc(0, map, mlx));
+		return (munalloc(-7));
+	return (munalloc(0));
 }
