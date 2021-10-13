@@ -17,19 +17,21 @@ DEL			=	rm -f
 
 OBJ			=	$(SRCS:.c=.o)
 
-$(NAME):		$(OBJ)
-				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)
+all:			$(NAME)
 
 %.o:%.c
 				$(CC) $(CFLAGS) -o $@ -c $<
 
-all:			$(NAME)
+$(NAME):		$(OBJ)
+				make -C utils/minilibx-linux
+				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)
 
 san:			$(OBJ)
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS) $(SANFLAGS)
 
 clean:
 				$(DEL) $(OBJ)
+				make clean -C utils/minilibx-linux
 
 fclean:			clean
 				$(DEL) $(NAME)

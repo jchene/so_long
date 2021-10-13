@@ -6,13 +6,13 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 01:16:01 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/12 23:39:12 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/13 19:19:55 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-//Vérifie la longueur et le charset de la ligne
+//Vérifie la longueur, le charset et compte les collectibles et les sorties
 int	check_line(char *line)
 {
 	int		len;
@@ -29,10 +29,11 @@ int	check_line(char *line)
 	if (charset_diff("01CEP", line) != 0)
 		return (-1);
 	game()->nb_col += count_occur('C', line);
+	game()->nb_ex += count_occur('E', line);
 	return (0);
 }
 
-//Lis la map et verifie la longueur et le charset ligne par ligne
+//Lis la map et verifie la longueur, le charset et compte les collectibles et les sorties
 int	pre_check_map(char *path)
 {
 	int		id;

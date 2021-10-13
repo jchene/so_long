@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:10:56 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/12 23:35:22 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/13 19:19:52 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ typedef struct	s_color	//colors B:[0] G:[1] R:[2] T:[3] - malloc start mlx
 typedef struct	s_map	//map related variables - malloc main
 {
 	char	**map;		//array containing the copied map - malloc copy map
-	int		len;		//length of map
-	int		hei;		//height of map
+	int		len;		//length of map - init check line
+	int		hei;		//height of map - init pre check map
 	int		init;		//init of structure
 }				t_map;
 
@@ -39,9 +39,9 @@ typedef struct	s_game
 {
 	int		nb_col;		//number of collectibles in map
 	int		nb_ex;		//number of exits in map
-	int		col_id;		//id of collectible program is working on
 	int		**col;		//collectibles positions y:[][0] x:[][1] eaten:[][2] - malloc copy map
-	int		**ex;
+	int		**ex;		//exits positions y:[][0] x:[][1] eaten:[][2] - malloc copy map
+	int		col_id;		//id of collectible program is working on
 	int		ps[2];		//player starting position y:[0] x:[1] - malloc copy map
     int		pa[2];		//player actual position y:[0] x:[1] - malloc copy map
 	int		steps;		//number of steps from the start
@@ -53,8 +53,8 @@ typedef struct	s_mlx	//minilibx related variables - malloc main
 	void	*ptr;		//mlx pointer - start mlx
 	void	*win;		//windows pointer - start mlx
 	void	*img;		//image pointer - start mlx
-	int		ssizey;	//y size of game window
-	int		ssizex;	//x size of game window
+	int		ssizey;		//y size of game window
+	int		ssizex;		//x size of game window
 	int		init;		//init of structure
 }				t_mlx;
 
