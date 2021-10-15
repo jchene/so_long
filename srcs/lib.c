@@ -6,14 +6,14 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:09:44 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/23 02:50:01 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/15 15:44:44 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
 //Retourne 0 si 'c' est charset, -1 sinon
-int		char_diff(const char *charset, char c)
+int	char_diff(const char *charset, char c)
 {
 	int		i;
 
@@ -25,7 +25,7 @@ int		char_diff(const char *charset, char c)
 }
 
 //Retourne 0 si tout les caracteres de 'string' sont charset, -1 sinon
-int		charset_diff(const char *charset, char *line)
+int	charset_diff(const char *charset, char *line)
 {
 	int		i;
 
@@ -37,12 +37,12 @@ int		charset_diff(const char *charset, char *line)
 }
 
 //Retourne le nombre d'occurences du caractère 'c' dans la chaine 'line'
-int		count_occur(const char c, char *line)
+int	count_occur(const char c, char *line)
 {
 	int		occur;
 	int		len;
 	int		i;
-	
+
 	i = 0;
 	occur = 0;
 	len = ft_strlen(line);
@@ -53,7 +53,7 @@ int		count_occur(const char c, char *line)
 }
 
 //Retourne 1 si il existe une diffférence entre les deux strings, 0 sinon
-int		extdif(const char *ext, char *dot)
+int	extdif(const char *ext, char *dot)
 {
 	int		dotlen;
 	int		extlen;
@@ -74,7 +74,7 @@ int		extdif(const char *ext, char *dot)
 }
 
 //Verifie si le fichier de nom 'filename' possède l'extension 'ext'
-int		check_ext(const char *ext, char *filename)
+int	check_ext(const char *ext, char *filename)
 {
 	char	*dot;
 	int		len;

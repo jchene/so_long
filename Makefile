@@ -27,6 +27,7 @@ $(NAME):		$(OBJ)
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)
 
 san:			$(OBJ)
+				make -C utils/minilibx-linux
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS) $(SANFLAGS)
 
 clean:

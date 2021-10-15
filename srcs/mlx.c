@@ -6,103 +6,76 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/12 23:39:13 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/15 15:45:56 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
-//Gère les inputs du clavier et modifie les variables en conséquence
-int		handle_keys(int key, t_mlx *mlx)
+void	encounters(int key)
 {
 	int		coll_n;
 
-	if (key == 65307)
-	{
-		mlx_destroy_image(mlx->ptr, mlx->img);
-		mlx_destroy_window(mlx->ptr, mlx->win);
-		exit(0);
-	}
-	if (key == 122)
-		if (mlx->map->map[mlx->map->pa[0] - 1][mlx->map->pa[1]] != '1')
-		{
-			mlx->map->pa[0]--;
-			mlx->map->steps++;
-		}
-	if (key == 113)
-		if (mlx->map->map[mlx->map->pa[0]][mlx->map->pa[1] - 1] != '1')
-		{
-			mlx->map->pa[1]--;
-			mlx->map->steps++;
-		}
-	if (key == 115)
-		if (mlx->map->map[mlx->map->pa[0] + 1][mlx->map->pa[1]] != '1')
-		{
-			mlx->map->pa[0]++;
-			mlx->map->steps++;
-		}
-	if (key == 100)
-		if (mlx->map->map[mlx->map->pa[0]][mlx->map->pa[1] + 1] != '1')
-		{
-			mlx->map->pa[1]++;
-			mlx->map->steps++;
-		}
 	if (key == 122 || key == 113 || key == 115 || key == 100)
 	{
-		//printf("exit:[%d][%d], player:[%d][%d], col:%d\n", mlx->map->ex[0], mlx->map->ex[1], mlx->map->pa[0], mlx->map->pa[1], mlx->map->col_id);
-		coll_n = get_coll_n(mlx->map->pa[0], mlx->map->pa[1], mlx);
-		if (coll_n != -1 && mlx->map->col[coll_n][2] != 1)
+		game()->steps++;
+		coll_n = get_coll_n(game()->pa[0], game()->pa[1]);
+		if (coll_n != -1 && game()->col[coll_n][2] != 1)
 		{
-			mlx->map->col[coll_n][2] = 1;
-			mlx->map->col_id--;
+			game()->col[coll_n][2] = 1;
+			game()->col_id--;
 		}
-		if ((mlx->map->col_id == 0) && (mlx->map->pa[0] == mlx->map->ex[0]) && (mlx->map->pa[1] == mlx->map->ex[1]))
-		{
-			mlx_destroy_image(mlx->ptr, mlx->img);
-			mlx_destroy_window(mlx->ptr, mlx->win);
-			exit(0);
-		}
-		printf("%d\n", mlx->map->steps);
+		if ((game()->col_id == 0)
+			&& (map()->map[game()->pa[0]][game()->pa[1]] == 'E'))
+			munalloc(0);
+		printf("%d\n", game()->steps);
+		update_img(0);
 	}
-	return (0);
 }
 
-//Initialise la structure 'imdt' contenant les donnees relatives a l'image
-int		init_imdt(t_imdt *imdt, t_mlx *mlx)
+//Handle keyboard inputs
+int	handle_keys(int key, int null)
 {
-	if (!(imdt->bpp = (int *)malloc(sizeof(int))))
-		return (-1);
-	if (!(imdt->ln_size = (int *)malloc(sizeof(int))))
-		return (-1);
-	if (!(imdt->endian = (int *)malloc(sizeof(int))))
-		return (-1);
-	imdt->start = mlx_get_data_addr(mlx->img, imdt->bpp,
-		imdt->ln_size, imdt->endian);
+	(void)null;
+	if (key == 65307)
+		munalloc(0);
+	if (key == 122)
+		if (map()->map[game()->pa[0] - 1][game()->pa[1]] != '1')
+			game()->pa[0]--;
+	if (key == 113)
+		if (map()->map[game()->pa[0]][game()->pa[1] - 1] != '1')
+			game()->pa[1]--;
+	if (key == 115)
+		if (map()->map[game()->pa[0] + 1][game()->pa[1]] != '1')
+			game()->pa[0]++;
+	if (key == 100)
+		if (map()->map[game()->pa[0]][game()->pa[1] + 1] != '1')
+			game()->pa[1]++;
+	encounters(key);
 	return (0);
 }
 
-//Dessine l'image grace aux informations utiles
-int		draw_img(t_imdt *imdt, t_mlx *mlx)
+//Draw image using screen size and color
+int	draw_img(void)
 {
 	int		line;
 	int		column;
 	int		pixel;
 	int		part;
-	
 
 	line = 0;
 	column = 0;
 	part = 0;
-	while (line < *(mlx->ssizey))
+	while (line < mlx()->ssizey)
 	{
 		column = 0;
-		while (column < *(mlx->ssizex))
+		while (column < mlx()->ssizex)
 		{
 			part = 0;
-			pixel = (line * *(imdt->ln_size)) + (column * 4);
+			pixel = (line * *(imdt()->ln_size)) + (column * 4);
 			while (part < 4)
 			{
-				imdt->start[pixel + part] = get_color(line, column, part, mlx);
+				(imdt()->start[pixel + part]) = get_color(line, column, part);
 				part++;
 			}
 			column++;
@@ -112,49 +85,32 @@ int		draw_img(t_imdt *imdt, t_mlx *mlx)
 	return (0);
 }
 
-//Mets à jour l'image affichée
-int		update_img(t_mlx *mlx)
+//Update displayed image
+int	update_img(int null)
 {
-	t_imdt	*imdt;
-
-	if (!(imdt = (t_imdt *)malloc(sizeof(t_imdt))))
+	(void)null;
+	if (init_imdt() == -1)
 		return (-1);
-	if (init_imdt(imdt, mlx) == -1)
+	if (draw_img() == -1)
 		return (-1);
-	if (draw_img(imdt, mlx) == -1)
-		return (-1);
-	mlx_put_image_to_window(mlx->ptr, mlx->win, mlx->img, 0, 0);
-	free(imdt->bpp);
-	free(imdt->ln_size);
-	free(imdt->endian);
-	free(imdt);
+	mlx_put_image_to_window(mlx()->ptr, mlx()->win, mlx()->img, 0, 0);
+	free_imdt();
 	return (0);
 }
 
-//Démarrage et boucle de la mlx
-int		start_mlx(t_map *map, t_mlx *mlx)
+//Setup mlx and begin loop
+int	start_mlx(void)
 {
-	t_color		*color;
-
-	map->steps = 0;
-	mlx->map = map;
-	if (!(mlx->ssizey = (int *)malloc(sizeof(int))))
+	game()->pa[0] = game()->ps[0];
+	game()->pa[1] = game()->ps[1];
+	mlx()->ptr = mlx_init();
+	if ((mlx()->ptr) == NULL)
 		return (-1);
-		
-	if (!(mlx->ssizex = (int *)malloc(sizeof(int))))
-		return (-1);
-	*(mlx->ssizex) = 1280;
-	*(mlx->ssizey) = 720;
-	mlx->map->pa[0] = mlx->map->ps[0];
-	mlx->map->pa[1] = mlx->map->ps[1];
-	if (!(color = (t_color *)malloc(sizeof(t_color))))
-		return (-1);
-	if ((mlx->ptr = mlx_init()) == NULL)
-		return (-1);
-	mlx->win = mlx_new_window(mlx->ptr, *(mlx->ssizex), *(mlx->ssizey), "so_long");
-	mlx->img = mlx_new_image(mlx->ptr, *(mlx->ssizex), *(mlx->ssizey));
-	mlx_key_hook(mlx->win, handle_keys, mlx);
-	mlx_loop_hook(mlx->ptr, update_img, mlx);
-	mlx_loop(mlx->ptr);
+	(mlx()->win) = mlx_new_window((mlx()->ptr),
+			(mlx()->ssizex), (mlx()->ssizey), "so_long");
+	(mlx()->img) = mlx_new_image(mlx()->ptr, mlx()->ssizex, mlx()->ssizey);
+	update_img(0);
+	mlx_key_hook(mlx()->win, handle_keys, NULL);
+	mlx_loop(mlx()->ptr);
 	return (0);
 }
