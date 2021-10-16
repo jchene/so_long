@@ -1,7 +1,17 @@
 NAME		=	so_long
 
-SRCS		=	./srcs/*.c\
-				./utils/get_next_line/*.c
+SRCS		=	./srcs/check_map.c\
+				./srcs/color.c\
+				./srcs/free.c\
+				./srcs/init.c\
+				./srcs/lib.c\
+				./srcs/mem.c\
+				./srcs/mlx.c\
+				./srcs/pre_check.c\
+				./srcs/so_long.c\
+				./srcs/static.c\
+				./utils/get_next_line/get_next_line.c\
+				./utils/get_next_line/get_next_line_utils.c
 
 CC			=	gcc
 

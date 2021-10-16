@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/16 16:37:14 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 21:50:50 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,9 @@ int	start_mlx(void)
 			(mlx()->ssizex), (mlx()->ssizey), "so_long");
 	(mlx()->img) = mlx_new_image(mlx()->ptr, mlx()->ssizex, mlx()->ssizey);
 	update_img(0);
-	mlx_key_hook(mlx()->win, handle_keys, NULL);
+	mlx_key_hook(mlx()->win, handle_keys, 0);
+	mlx_hook(mlx()->win, 17, 1L << 17, munalloc, 0);
+	mlx_expose_hook(mlx()->win, update_img, 0);
 	mlx_loop(mlx()->ptr);
 	return (0);
 }

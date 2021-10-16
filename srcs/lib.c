@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:09:44 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/16 16:32:54 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 21:53:27 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,10 @@ int	check_ext(const char *ext, char *filename)
 			dot = &filename[len];
 			if (extdif(ext, dot))
 				return (-1);
+			else
+				return (0);
 		}
 		len--;
 	}
-	return (0);
+	return (-1);
 }
