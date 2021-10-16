@@ -3,98 +3,95 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jchene <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 14:30:43 by jchene            #+#    #+#             */
-/*   Updated: 2020/02/07 13:22:57 by jchene           ###   ########.fr       */
+/*   Created: 2021/10/15 19:14:21 by jchene            #+#    #+#             */
+/*   Updated: 2021/10/15 20:26:39 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "./get_next_line.h"
 
-char	*eol_pos(char *buff)
+size_t	ft_strlen_nl(char *s)
 {
 	int		i;
 
 	i = 0;
-	while (buff[i] && buff[i] != '\n')
+	while (s[i] != '\0' && s[i] != '\n')
 		i++;
-	if (buff[i])
-		return (&buff[i]);
-	return (0);
+	return (i);
 }
 
-int		line_realloc(char *str, char **line)
+char	*ft_strjoin_gnl(char *s1, char *s2)
 {
-	char	*buff;
-	int		len;
+	int		i;
+	int		j;
+	char	*cpy;
 
-	if (!*line)
+	i = 0;
+	j = 0;
+	cpy = (char *)malloc(sizeof(char)
+			* (ft_strlen(s1) + ft_strlen_nl(s2) + 1));
+	if (cpy == NULL)
+		return (0);
+	while (s1[i] != '\0')
 	{
-		if (!(*line = (char *)malloc(sizeof(char) * (ft_strlen(str) + 1))))
-			return (-1);
-		ft_strcpyn(*line, str);
+		cpy[i] = s1[i];
+		i++;
+	}
+	while (s2[j] != '\0' && s2[j] != '\n')
+	{
+		cpy[i] = s2[j];
+		i++;
+		j++;
+	}
+	cpy[i] = '\0';
+	free(s1);
+	return (cpy);
+}
+
+char	*ft_strdup_gnl(char *s)
+{
+	int		i;
+	char	*cpy;
+
+	i = 0;
+	cpy = (char *)malloc(sizeof(char) * (ft_strlen_nl(s) + 1));
+	if (cpy == NULL)
+		return (0);
+	while (s[i] != '\0' && s[i] != '\n')
+	{
+		cpy[i] = s[i];
+		i++;
+	}
+	cpy[i] = '\0';
+	return (cpy);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static int	ret;
+	static char	buffer[1 + 1];
+
+	*line = ft_strdup_gnl(buffer);
+	if (fd < 0 || !line || read(fd, buffer, 0) == -1 || 1 <= 0)
+		return (-1);
+	if (ft_strchr(buffer, '\n') == 0)
+	{
+		while (read(fd, buffer, 1) > 0)
+		{
+			buffer[1] = '\0';
+			*line = ft_strjoin_gnl(*line, buffer);
+			if (ft_strchr(buffer, '\n') != 0)
+				break ;
+		}
+	}
+	if (ret < 1 && ft_strchr(buffer, '\n') == 0)
+	{
+		ft_bzero(buffer, 1 + 1);
 		return (0);
 	}
-	len = ft_strlen(str) + ft_strlen(*line);
-	if (!(buff = (char *)malloc(sizeof(char) * (len + 1))))
-		return (-1);
-	ft_strcpyn(buff, *line);
-	ft_strcatn(buff, str);
-	free(*line);
-	*line = buff;
-	return (0);
-}
-
-int		checkbuff(char *buff, char **line)
-{
-	char	*eol;
-
-	if (ft_strlen(buff))
-	{
-		eol = eol_pos(buff);
-		if (eol)
-		{
-			*eol = '\0';
-			if (line_realloc(buff, line))
-				return (-1);
-			ft_strcpyn(buff, (eol + 1));
-			return (1);
-		}
-		if (line_realloc(buff, line))
-			return (-1);
-	}
-	ft_memset(buff, 0, BUFFER_SIZE + 1);
-	return (0);
-}
-
-int		get_next_line(int fd, char **line)
-{
-	static char	*statbuff[4096];
-	int			check;
-	int			count;
-
-	if (fd < 0 || line == NULL || BUFFER_SIZE == 0)
-		return (-1);
-	*line = NULL;
-	if (!statbuff[fd])
-		if (!(statbuff[fd] = (char *)ft_calloc(BUFFER_SIZE + 1, sizeof(char))))
-			return (-1);
-	if ((check = checkbuff(statbuff[fd], line)))
-		return ((check = 1) ? 1 : -1);
-	while ((count = read(fd, statbuff[fd], BUFFER_SIZE)))
-	{
-		if (count == -1)
-			return (-1);
-		statbuff[fd][count] = '\0';
-		if ((check = checkbuff(statbuff[fd], line)))
-			return ((check = 1) ? 1 : -1);
-	}
-	if (!*line)
-		if (!(*line = (char *)ft_calloc(1, sizeof(char))))
-			return (-1);
-	free(statbuff[fd]);
-	statbuff[fd] = NULL;
-	return (0);
+	ft_memmove(buffer, buffer + ft_strlen_nl(buffer) + 1,
+		ft_strlen(buffer) - ft_strlen_nl(buffer));
+	return (1);
 }

@@ -6,12 +6,13 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/17 16:13:32 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/15 15:45:56 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 16:37:14 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
+//Handle encounters the player can have
 void	encounters(int key)
 {
 	int		coll_n;

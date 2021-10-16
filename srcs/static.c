@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 20:48:55 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/15 15:27:03 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/15 20:30:26 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_mlx	*mlx(void)
 	if (s_mlx.init == 0)
 	{
 		ft_bzero(&s_mlx, sizeof(t_mlx));
-		s_mlx.ssizex = 250;
-		s_mlx.ssizey = 100;
+		s_mlx.ssizex = 500;
+		s_mlx.ssizey = 200;
 		s_mlx.init = 1;
 	}
 	return (&s_mlx);

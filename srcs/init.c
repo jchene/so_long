@@ -6,12 +6,13 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 22:50:34 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/15 15:45:16 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 16:33:47 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/so_long.h"
 
+//Initialize color data in 'elem' from structure color
 void	init_elem_color(int *elem, int blu, int gre, int red)
 {
 	elem[0] = blu;
@@ -33,7 +34,7 @@ int	init_imdt(void)
 	return (0);
 }
 
-//malloc in main
+//Initialize map array
 int	init_map_array(void)
 {
 	int		i;

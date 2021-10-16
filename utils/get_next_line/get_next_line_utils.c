@@ -5,74 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/24 16:07:41 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/12 21:43:52 by jchene           ###   ########.fr       */
+/*   Created: 2021/10/15 19:30:39 by jchene            #+#    #+#             */
+/*   Updated: 2021/10/15 20:27:37 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "./get_next_line.h"
 
-int		ft_strlen(char *string)
+int	ft_strlen(char *str)
 {
 	int		i;
 
 	i = 0;
-	while (string[i])
+	while (str[i])
 		i++;
 	return (i);
 }
 
-void	ft_strcpyn(char *dst, char *src)
+char	*ft_strchr(char *str, char c)
 {
 	int		i;
 
 	i = 0;
-	while (src[i])
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
+	while (str[i])
+		if (str[i++] == c)
+			return (&str[i]);
+	return (NULL);
 }
 
-void	ft_strcatn(char *dst, char *src)
+void	ft_bzero(void *b, size_t n)
 {
-	int		i;
-	int		j;
+	unsigned char	*ptr;
 
+	ptr = (unsigned char *)b;
+	while (n-- > 0)
+		*(ptr++) = 0;
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	size_t	i;
+
+	if (dst == src)
+		return (dst);
 	i = 0;
-	j = ft_strlen(dst);
-	while (src[i])
+	if (dst > src)
 	{
-		dst[j] = src[i];
-		i++;
-		j++;
+		while (i < len)
+		{
+			((unsigned char *)dst)[len - 1] = ((unsigned char *)src)[len - 1];
+			len--;
+		}
 	}
-	dst[j] = '\0';
-}
-
-void	*ft_memset(void *s, int c, int n)
-{
-	unsigned char	chr;
-	int				i;
-	char			*str;
-
-	str = s;
-	i = 0;
-	chr = (unsigned char)c;
-	while (i < n)
+	else
 	{
-		str[i] = chr;
-		i++;
+		while (i < len)
+		{
+			((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
+			i++;
+		}
 	}
-	return (s);
-}
-
-void	*ft_calloc(int count, int size)
-{
-	void	*ptr;
-
-	if (!(ptr = malloc(size * count)))
-		return (NULL);
-	return (ft_memset(ptr, 0, count * size));
+	return (dst);
 }

@@ -5,21 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/23 16:39:09 by jchene            #+#    #+#             */
-/*   Updated: 2021/09/12 21:44:09 by jchene           ###   ########.fr       */
+/*   Created: 2021/10/15 19:14:47 by jchene            #+#    #+#             */
+/*   Updated: 2021/10/15 19:57:57 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFFER_SIZE 10
-# include <unistd.h>
+# define BUFFER_SIZE 1
 # include <stdlib.h>
+# include <fcntl.h>
+# include <unistd.h>
 
-int		get_next_line(int fd, char **line);
-int		ft_strlen(char *string);
-void	ft_strcpyn(char *dst, char *src);
-void	ft_strcatn(char *dst, char *src);
-void	*ft_memset(void *s, int c, int n);
-void	*ft_calloc(int count, int size);
+int				ft_strlen(char *str);
+char			*ft_strchr(char *str, char c);
+void			ft_bzero(void *b, size_t n);
+void			*ft_memmove(void *dst, const void *src, size_t len);
+size_t			ft_strlen_nl(char *s);
+char			*ft_strjoin_gnl(char *s1, char *s2);
+char			*ft_strdup_gnl(char *s);
+int				get_next_line(int fd, char **line);
 #endif

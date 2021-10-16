@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 22:59:20 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/15 15:32:54 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 16:37:57 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	get_coll_n(int y, int x)
 	return (-1);
 }
 
+//Return the color of collectible located at parameters
 int	get_coll_color(int line, int column, int part)
 {
 	float	v_rap;

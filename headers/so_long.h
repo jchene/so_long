@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/12 17:10:56 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/15 15:47:56 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/16 16:37:34 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,55 +17,55 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-typedef struct s_color	//colors B:[0] G:[1] R:[2] T:[3] - malloc start mlx
+typedef struct s_color
 {
-	int		player[4];	//player colors - malloc init color
-	int		walls[4];	//wall colors - malloc init color
-	int		coll[4];	//collectibles color - malloc init color
-	int		exit[4];	//exit color - malloc init color
-	int		floor[4];	//floor color - malloc init color
-	int		init;		//init of structure
+	int		player[4];
+	int		walls[4];
+	int		coll[4];
+	int		exit[4];
+	int		floor[4];
+	int		init;
 }				t_color;
 
-typedef struct	s_map	//map related variables - malloc main
+typedef struct s_map
 {
-	char	**map;		//array containing the copied map - malloc copy map
-	int		len;		//length of map - init check line
-	int		hei;		//height of map - init pre check map
-	int		init;		//init of structure
+	char	**map;
+	int		len;
+	int		hei;
+	int		init;
 }				t_map;
 
-typedef struct	s_game
+typedef struct s_game
 {
-	int		nb_col;		//number of collectibles in map
-	int		nb_ex;		//number of exits in map
-	int		col_id;		//id of collectible program is working on
-	int		ex_id;		//id of exit program is working on
-	int		**col;		//collectibles positions y:[][0] x:[][1] eaten:[][2] - malloc copy map
-	int		**ex;		//exits positions y:[][0] x:[][1] eaten:[][2] - malloc copy map
-	int		ps[2];		//player starting position y:[0] x:[1] - malloc copy map
-    int		pa[2];		//player actual position y:[0] x:[1] - malloc copy map
-	int		steps;		//number of steps from the start
-	int		init;		//init of structure
+	int		nb_col;
+	int		nb_ex;
+	int		col_id;
+	int		ex_id;
+	int		**col;
+	int		**ex;
+	int		ps[2];
+	int		pa[2];
+	int		steps;
+	int		init;
 }				t_game;
 
-typedef struct	s_mlx	//minilibx related variables - malloc main
+typedef struct s_mlx
 {
-	void	*ptr;		//mlx pointer - start mlx
-	void	*win;		//windows pointer - start mlx
-	void	*img;		//image pointer - start mlx
-	int		ssizey;		//y size of game window
-	int		ssizex;		//x size of game window
-	int		init;		//init of structure
+	void	*ptr;
+	void	*win;
+	void	*img;
+	int		ssizey;
+	int		ssizex;
+	int		init;
 }				t_mlx;
 
-typedef struct	s_imdt	//image data - update img
+typedef struct s_imdt
 {
-	int		*bpp;		//bits per pixel - update img
-	int		*ln_size;	//line size - update img
-	int		*endian;	//endian - update img
-	char	*start;		//start of img pointer - update img
-	int		init;		//init of structure
+	int		*bpp;
+	int		*ln_size;
+	int		*endian;
+	char	*start;
+	int		init;
 }				t_imdt;
 
 //multi-usage functions
@@ -99,7 +99,7 @@ int		verif_utils(int i);
 int		check_map(void);
 
 //memory and error functions
-void	ft_bzero(void *b, size_t n);
+char	*ft_strcpyn(char *dest, char *src);
 int		err_code(int code);
 int		munalloc(int code);
 
