@@ -32,18 +32,17 @@ all:			$(NAME)
 %.o:%.c
 				$(CC) $(CFLAGS) -o $@ -c $<
 
-make_mlx:		
+$(NAME):		$(OBJ)
 				make -C utils/minilibx-linux
-
-$(NAME):		$(OBJ) make_mlx
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS)
 
-san:			$(OBJ) make_mlx
+san:			$(OBJ)
+				make -C utils/minilibx-linux
 				$(CC) -o $(NAME) $(SRCS) $(MLX) $(LIB) $(CFLAGS) $(SANFLAGS)
 
 clean:
 				$(DEL) $(OBJ)
-				@make clean -C utils/minilibx-linux
+				make clean -C utils/minilibx-linux
 
 fclean:			clean
 				$(DEL) $(NAME)

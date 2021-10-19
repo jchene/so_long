@@ -6,7 +6,7 @@
 /*   By: jchene <jchene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 16:44:07 by jchene            #+#    #+#             */
-/*   Updated: 2021/10/16 16:36:53 by jchene           ###   ########.fr       */
+/*   Updated: 2021/10/18 16:39:43 by jchene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	err_code(int code)
 	else if (code == -6)
 		printf("Failed to allocate game array\n");
 	else if (code == -7)
-		printf("Wrong walls in map\n");
+		printf("Invalid player/exit/collectible/wall\n");
 	else if (code == -8)
 		printf("Error occured in mlx\n");
 	return (code);
